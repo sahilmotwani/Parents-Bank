@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ParentsBank.Models.WishList>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.account.Recipient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Link)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Purchasable)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Purchased)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.account.Recipient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                @if (item.Purchasable == 0)
+                {
+                    <span class="glyphicon glyphicon-thumbs-down" style="color:red" aria-hidden="false"></span>
+                }
+                @if (item.Purchasable == 1)
+                {
+                    <span class="glyphicon glyphicon-thumbs-up" style="color:deepskyblue" aria-hidden="false"></span>
+                }
+                @if (item.Purchasable == 2)
+                {
+                    <span class="glyphicon glyphicon-check" style="color:lightgreen" aria-hidden="false"></span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purchased)
+            </td>
+            <td style="text-align:right">
+                <input type="button" class="btn btn-primary" title="Edit" value="Edit" onclick="location.href='@Url.Action("Edit", "WishLists", new { id = item.Id })'" />
+                <input type="button" class="btn btn-primary" title="Details" value="Details" onclick="location.href='@Url.Action("Details", "WishLists", new { id = item.Id })'" />
+                @if(User.IsInRole("Owner"))
+                { 
+                <input type="button" class="btn btn-primary" title="Delete" value="Delete" onclick="location.href='@Url.Action("Delete", "WishLists", new { id = item.Id })'" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>

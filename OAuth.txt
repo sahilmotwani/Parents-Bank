@@ -1,0 +1,3 @@
+OAuth Client
+ID:496086296340-sr55h5i964cjqfn3g43ke1dosc1jtjc7.apps.googleusercontent.com
+secret:hrO3aakVJAuxi-eGETuuJxZV

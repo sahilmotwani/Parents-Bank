@@ -1,0 +1,130 @@
+﻿@model ParentsBank.Models.Account
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Recipient)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Recipient)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OpenDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpenDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InterestEarned)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InterestEarned)
+        </dd>
+        <dt>
+            Total Amount(with Interest)
+        </dt>
+
+        <dd>
+            @Model.AccruedAmount()
+        </dd>
+        
+    </dl>
+</div>
+
+<div class="progress">
+    
+    <div class="progress-bar progress-bar-success" style="width: @Model.PrincipalPercentage()%">
+    <span> Principal</span>    <span class="sr-only">@Model.PrincipalPercentage() Complete (success)</span>
+    </div>
+    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: @Model.InterestPercentage()%">
+        <span>Interest Earned</span><span class="sr-only">@Model.InterestPercentage() Complete (warning)</span>
+    </div>
+   
+</div>
+
+<div>
+    @if(Model.InterestEarned >= 10)
+    {
+        <h2 style="color:red; text-align:center"><span><img src="/Images/abc.gif" style="width:150px;height:180px" alt="Parent's Bank"></span>Congratulations!!<span><img src="~/Images/abc.gif" style="width:150px;height:180px" alt="Parent's Bank"></span></h2>
+    }
+</div>
+
+<p>
+    @if (User.IsInRole("Owner"))
+    {
+    @Html.ActionLink("Edit |", "Edit", new { id = Model.Id }) 
+         
+    @Html.ActionLink(" Back to List", "Index")
+    }
+</p>
+
+<h2>Transactions</h2>
+<div>
+    @if (User.IsInRole("Owner"))
+    {
+        <input type="button" class="btn btn-primary" title="Create" value="Create New Transactions" onclick="location.href='@Url.Action("Create", "Transactions",new { id = Model.Id })'" />
+    }
+</div>
+@{ Html.RenderAction("transactions", new { id = Model.Id });}
+<div>
+
+</div>
+<h2>Wishlist</h2>
+<div>
+    <input type="button" class="btn btn-primary" title="Create" value="Add Wishlist Item" onclick="location.href='@Url.Action("Create", "WishLists",new { id = Model.Id })'" />
+    
+</div>
+
+@{ Html.RenderAction("wishlist", new { id = Model.Id });}

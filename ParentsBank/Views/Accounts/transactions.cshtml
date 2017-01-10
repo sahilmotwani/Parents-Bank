@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ParentsBank.Models.Transaction>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.account.Recipient)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.account.Recipient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            @if(User.IsInRole("Owner"))
+            { 
+            <td style="text-align:right">
+                <input type="button" class="btn btn-primary" title="Edit" value="Edit" onclick="location.href='@Url.Action("Edit", "Transactions", new { id = item.Id })'" />
+                <input type="button" class="btn btn-primary" title="Details" value="Details" onclick="location.href='@Url.Action("Details", "Transactions", new { id = item.Id })'" />
+                <input type="button" class="btn btn-primary" title="Delete" value="Delete" onclick="location.href='@Url.Action("Delete", "Transactions", new { id = item.Id })'" />
+                                
+            </td>
+            }
+        </tr>
+    }
+
+</table>
